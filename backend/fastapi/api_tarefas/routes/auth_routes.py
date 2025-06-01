@@ -4,7 +4,7 @@ from models.auth import  SignInUser, SignUpUser, ResetPassword, ForgotPassword, 
 
 auth_dao = AuthDAO()
 
-@router.post('/auth/Signin')
+@router.post('/auth/Signin',status_code=status.HTTP_200_OK)
 def login(data: SignInUser):
     usuario_existente = auth_dao.buscar_usuario_por_email(data.email)
 
@@ -64,7 +64,7 @@ def reset_password(data: ResetPassword):
 
 
 @router.post("/refresh", status_code=status.HTTP_200_OK)
-def refresh_token(data: RefreshToken):
+def refresh_token(data: RefreshToken, user:Annotated[SignUpUser, Depends(get_current_user)]):
     novo_token, novo_token_refresh = verify_refresh_token(data.refresh_token)
     if not novo_token:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Refresh token inválido ou expirado")

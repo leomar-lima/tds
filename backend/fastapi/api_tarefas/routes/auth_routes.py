@@ -64,7 +64,7 @@ def reset_password(data: ResetPassword):
 
 
 @router.post("/refresh", status_code=status.HTTP_200_OK)
-def refresh_token(data: RefreshToken, user:Annotated[SignUpUser, Depends(get_current_user)]):
+def refresh_token(data: RefreshToken):
     novo_token, novo_token_refresh = verify_refresh_token(data.refresh_token)
     if not novo_token:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Refresh token inválido ou expirado")

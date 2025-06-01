@@ -1,15 +1,12 @@
 # 1. Maquina com Python
-FROM python:3.10.5-slim-bullseye
+FROM python:3.10.11-slim-bullseye
 
 # 2. Copy arquivos
 WORKDIR /app
-COPY requirements.txt .
+COPY  . /app
 
 # 3. Instalar as Dependencias
 RUN pip install --no-cache-dir -r requirements.txt
-
-# 4. Copy arquivos
-COPY . .
 
 # 4. Expor Porta
 EXPOSE 8000

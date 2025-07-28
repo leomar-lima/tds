@@ -5,7 +5,7 @@ FROM python:3.11.6-slim-bullseye
 WORKDIR /home/app
 
 # 3. Copia apenas o requirements.txt e instala dependências
-COPY requirements.txt .
+COPY ./requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # 4. Copia o restante do projeto

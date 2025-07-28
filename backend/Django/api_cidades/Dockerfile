@@ -1,16 +1,18 @@
-FROM python:3.10-slim
+# 1. Imagem base com Python
+FROM python:3.11.6-slim-bullseye
 
-# 1. Defina diretório de trabalho
+# 2. Define o diretório de trabalho
 WORKDIR /home/app
 
-# 2. Copie o requirements.txt
+# 3. Copia apenas o requirements.txt e instala dependências
 COPY requirements.txt .
-
-# 3. Instale as dependências
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# 4. Copie todo o código
+# 4. Copia o restante do projeto
 COPY . .
 
-# 5. Comando padrão
+# 5. Expõe a porta da aplicação
+EXPOSE 8000
+
+# 6. Comando para rodar a aplicação
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
